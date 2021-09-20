@@ -1,28 +1,30 @@
 package com.mealfinder.MealFinderApi.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.mealfinder.MealFinderApi.entities.Meal;
+import com.mealfinder.MealFinderApi.dtos.request.OldMealDTO;
+import com.mealfinder.MealFinderApi.services.MealService;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Scanner;
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/meals")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class MealController {
 
+    private MealService mealService;
+
     @GetMapping
-    public String getAll() throws IOException {
-        var url = new URL("https://www.themealdb.com/api/json/v2/1/search.php?s=");
-        var connection = url.openConnection();
-        connection.setRequestProperty("Accept-Charset", "UTF-8");
-        InputStream response = connection.getInputStream();
-        String responseBody;
-        try (Scanner scanner = new Scanner(response)) {
-            responseBody = scanner.useDelimiter("\\A").next();
-        }
-        return responseBody;
+    public List<Meal> getAll() throws Exception {
+        return mealService.getAll();
+    }
+
+    @GetMapping("/old")
+    public List<OldMealDTO> getlOldAll() throws Exception {
+        return mealService.getOldAll();
     }
 }
