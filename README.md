@@ -51,4 +51,7 @@ psql -U rickybustillos mealfinder
 ### Routes mapping
 
 /api/v1/meals
+
 /api/v1/meals?s=yourNameSearchHere
+
+
