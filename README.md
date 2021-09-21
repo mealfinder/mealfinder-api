@@ -13,7 +13,7 @@
 
 #  Mealfinder API
 
-The MealFinder is an application for you that want to discover new meals.
+The MealFinder is an application for you who want to discover new meals.
 
 ## Development server
 
