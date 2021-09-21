@@ -47,3 +47,8 @@ psql -U rickybustillos mealfinder
 - Spring Data JPA
 - Lombok
 - PostgreSQL Driver
+
+### Routes mapping
+
+/api/v1/meals
+/api/v1/meals?s=yourNameSearchHere
