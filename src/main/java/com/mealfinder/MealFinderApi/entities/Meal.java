@@ -8,7 +8,6 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 import org.hibernate.type.TextType;
-
 import javax.persistence.*;
 
 @Entity
@@ -23,8 +22,7 @@ import javax.persistence.*;
 public class Meal {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(nullable = false)
     private String name;
@@ -48,13 +46,4 @@ public class Meal {
     @Column
     private String source;
 
-    public Meal(String strMeal, String strCategory, String strArea, String strInstructions, String strMealThumb, String strYoutube, String strSource) {
-        this.name = strMeal;
-        this.category = strCategory;
-        this.area = strArea;
-        this.instructions = strInstructions;
-        this.thumb = strMealThumb;
-        this.youtube = strYoutube;
-        this.source = strSource;
-    }
 }

@@ -22,16 +22,23 @@ public class MealService {
     private MealRepository mealRepository;
 
     public List<Meal> getAll() throws Exception {
-        var meals = mealRepository.findAll();
+        List<Meal> meals = mealRepository.findAll();
         if(meals.isEmpty()) {
-            meals = insertOldMeals();
+            meals = insertOldMeals("");
         }
         return meals;
     }
 
-    public List<OldMealDTO> getOldAll() throws Exception {
+    public List<Meal> getByName(String search) throws Exception {
+        List<Meal> meals = mealRepository.findByName(search);
+        if(meals.isEmpty()) {
+            meals = insertOldMeals(search);
+        }
+        return meals;
+    }
 
-        var url = new URL("https://www.themealdb.com/api/json/v1/1/search.php?s=");
+    public List<OldMealDTO> getOldAll(String search) throws Exception {
+        var url = new URL("https://www.themealdb.com/api/json/v1/1/search.php?s="+search);
         var connection = url.openConnection();
         connection.setRequestProperty("Accept-Charset", "UTF-8");
         InputStream response = connection.getInputStream();
@@ -47,22 +54,22 @@ public class MealService {
     }
 
     public List<Meal> createMeals(List<Meal> meals) {
-        mealRepository.deleteAll();
         return mealRepository.saveAll(meals);
     }
 
-    public List<Meal> insertOldMeals() throws Exception {
-        var oldMeals = getOldAll();
+    public List<Meal> insertOldMeals(String search) throws Exception {
+        var oldMeals = getOldAll(search);
         List<Meal> newMeals = new ArrayList<>();
         oldMeals.forEach((oldMeal) -> {
             Meal newMeal = new Meal(
-                    oldMeal.getStrMeal(),
-                    oldMeal.getStrCategory(),
-                    oldMeal.getStrArea(),
-                    oldMeal.getStrInstructions(),
-                    oldMeal.getStrMealThumb(),
-                    oldMeal.getStrYoutube(),
-                    oldMeal.getStrSource()
+                oldMeal.getIdMeal(),
+                oldMeal.getStrMeal(),
+                oldMeal.getStrCategory(),
+                oldMeal.getStrArea(),
+                oldMeal.getStrInstructions(),
+                oldMeal.getStrMealThumb(),
+                oldMeal.getStrYoutube(),
+                oldMeal.getStrSource()
             );
             newMeals.add(newMeal);
         });
