@@ -15,6 +15,8 @@
 
 The MealFinder is an application for you who want to discover new meals.
 
+This application consumes an external API called "themealdb". The application detects if the database returns a null value and will look for them in the external API and automatically insert them into the database. There are negotiations so that there is no data redundancy.
+
 ## Development server
 
 ### Configure PostgreSQL Database with Docker
