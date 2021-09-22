@@ -50,7 +50,15 @@ public class MealService {
         Gson gson = new Gson();
         OldMealListDTO oldMeals = gson.fromJson(responseBody, OldMealListDTO.class);
 
-        return List.of(oldMeals.getMeals());
+        List<OldMealDTO> meals = new ArrayList<>();
+
+        try {
+            meals = List.of(oldMeals.getMeals());
+        } catch (Exception e) {
+            System.out.println("No results");
+        }
+
+        return meals;
     }
 
     public List<Meal> createMeals(List<Meal> meals) {
